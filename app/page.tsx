@@ -10,7 +10,7 @@ type Project = {
   blurb: string;
   tags: string[];
   thumb: string;
-  repo: string; // <- penting buat link GitHub
+  repo: string;
 };
 
 const PROJECTS: Project[] = [
@@ -51,7 +51,6 @@ export default function Page() {
       {/* ===== HERO ===== */}
       <section
         id="home"
-        // ✅ anchor offset + full device viewport height (mobile)
         className="scroll-mt-24 min-h-[100dvh] container mx-auto grid max-w-[1240px] grid-cols-12 gap-8 px-6 md:px-10 pt-28 md:pt-32"
       >
         <motion.div
@@ -111,7 +110,6 @@ export default function Page() {
               height={900}
               priority
               className="h-full w-full object-cover"
-              // ✅ kirim resolusi pas buat mobile/tablet/desktop
               sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 340px"
             />
           </div>
@@ -127,7 +125,6 @@ export default function Page() {
           Featured <span className="text-[var(--accent)]">Projects</span>
         </h2>
 
-        {/* ✅ hemat render di mobile */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8 [content-visibility:auto] [contain-intrinsic-size:600px]">
           {PROJECTS.map((p) => (
             <a
@@ -136,7 +133,7 @@ export default function Page() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Open GitHub repo: ${p.title}`}
-              className="group rounded-2xl border border-white/10 bg-[var(--elevated)]/40 p-5 ring-1 ring-transparent hover:ring-[var(--accent)]/50 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] active:scale-[0.99]"
+              className="group flex flex-col rounded-2xl border border-white/10 bg-[var(--elevated)]/40 p-5 ring-1 ring-transparent hover:ring-[var(--accent)]/50 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] active:scale-[0.99]"
             >
               <div className="relative aspect-[16/11] overflow-hidden rounded-xl ring-1 ring-white/10">
                 <Image
@@ -144,7 +141,6 @@ export default function Page() {
                   alt={p.title}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  // ✅ responsive sizes untuk card grid
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <span className="absolute right-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] tracking-wide ring-1 ring-white/15">
@@ -167,6 +163,27 @@ export default function Page() {
                   </span>
                 ))}
               </div>
+
+              {/* CTA kecil di bawah kanan */}
+              <div className="mt-3 flex justify-end">
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-[var(--accent)] group-hover:underline">
+                  See details
+                  <svg
+                    aria-hidden="true"
+                    className="h-3 w-3"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M5 11L11 5M7 5H11V9"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
             </a>
           ))}
         </div>
@@ -188,9 +205,9 @@ export default function Page() {
         <div className="grid gap-8 md:grid-cols-12 mt-8">
           <div className="md:col-span-7 space-y-4">
             <p className="text-[var(--subtle)] leading-relaxed">
-              Interested in collaborating, discussing a project, or just want to talk about data and tech?
-              I’m always open to new opportunities and meaningful conversations. Feel free to reach out
-              through any of the platforms below.
+              Interested in collaborating, discussing a project, or just want to talk about data and
+              tech? I&apos;m always open to new opportunities and meaningful conversations. Feel free
+              to reach out through any of the platforms below.
             </p>
 
             <div className="flex gap-4 mt-4">
