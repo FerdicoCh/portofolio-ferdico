@@ -1,87 +1,147 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ArrowUpRight, Download } from "@/components/ui/icons";
-import { EDUCATION, HERO_FACTS, SITE, SOCIALS } from "@/lib/site";
+import {
+  ArrowDown,
+  Download,
+  GitHub,
+  GraduationCap,
+  Instagram,
+  LinkedIn,
+  Mail,
+  MapPin,
+} from "@/components/ui/icons";
+import { CURRENT_ROLE, EDUCATION, SITE, SOCIALS, type SocialKey } from "@/lib/site";
+
+const SOCIAL_ICON: Record<SocialKey, typeof GitHub> = {
+  linkedin: LinkedIn,
+  github: GitHub,
+  instagram: Instagram,
+};
+
+const FACT_CARD = "flex min-h-[8.25rem] flex-col justify-between rounded-3xl bg-surface p-5";
+const FACT_LABEL = "flex items-center justify-between text-sm text-muted";
 
 export default function Hero() {
   return (
-    <section id="top" className="pt-[calc(4rem+env(safe-area-inset-top))]">
-      <div className="container-page grid gap-12 py-16 sm:py-20 lg:grid-cols-12 lg:gap-10 lg:py-28">
-        {/* Intro */}
-        <div className="lg:col-span-8">
-          <h1 className="text-[clamp(2.75rem,8vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.045em] text-ink">
+    <section id="top" className="pt-28 sm:pt-36">
+      <div className="container-page">
+        {/* Nama selebar container (ukuran font ikut lebar container) */}
+        <div className="@container">
+          <h1 className="whitespace-nowrap text-[13.9cqw] font-semibold leading-[0.95] tracking-[-0.06em] text-ink">
             {SITE.name}
           </h1>
-
-          <p className="mt-7 max-w-[36rem] text-[clamp(1.2rem,2.1vw,1.5rem)] leading-snug tracking-[-0.01em] text-body text-pretty">
-            Information Systems undergraduate at Universitas Multimedia Nusantara, working on{" "}
-            <span className="text-ink">artificial intelligence</span>, data analytics, and web
-            development.
-          </p>
-
-          <dl className="mt-9 max-w-md border-t border-line text-[0.95rem]">
-            {HERO_FACTS.map((f) => (
-              <div key={f.label} className="flex gap-6 border-b border-line py-3">
-                <dt className="w-24 shrink-0 text-muted">{f.label}</dt>
-                <dd className="font-medium text-ink">{f.value}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Button asChild>
-              <a href={SITE.resume} download>
-                Download CV
-                <Download className="text-[0.95rem]" />
-              </a>
-            </Button>
-            <Button asChild variant="secondary">
-              <a href="#projects">
-                View projects
-                <ArrowDown className="text-[0.95rem]" />
-              </a>
-            </Button>
-          </div>
-
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            {SOCIALS.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link inline-flex items-center gap-1 text-body"
-                >
-                  {s.label}
-                  <ArrowUpRight className="text-[0.85rem]" />
-                </a>
-              </li>
-            ))}
-            <li>
-              <a href={`mailto:${SITE.email}`} className="link text-body">
-                Email
-              </a>
-            </li>
-          </ul>
         </div>
 
-        {/* Portrait */}
-        <figure className="w-full max-w-[19rem] lg:col-span-4 lg:ml-auto lg:max-w-none">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-surface">
-            <Image
-              src={SITE.photo}
-              alt={`Portrait of ${SITE.name}`}
-              fill
-              priority
-              sizes="(max-width: 1024px) 304px, 340px"
-              className="object-cover object-[62%_32%]"
-            />
+        <div className="mt-8 grid gap-5 sm:mt-12 md:grid-cols-12 lg:gap-6">
+          {/* Intro */}
+          <div className="order-1 flex flex-col md:col-span-7 lg:order-2 lg:col-span-5 lg:px-3">
+            <p className="text-[clamp(1.375rem,2.4vw,1.75rem)] leading-[1.22] tracking-[-0.025em] text-ink text-pretty">
+              Information Systems undergraduate working on{" "}
+              <em className="accent-serif text-[1.12em] text-accent">artificial intelligence</em>, data
+              analytics, and web development.
+            </p>
+            <p className="mt-5 text-[1.0625rem] leading-relaxed text-body text-pretty">
+              I train models, analyze data, and build the web applications that put both to use.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Button asChild size="lg">
+                <a href={SITE.resume} download>
+                  Download CV
+                  <Download className="text-base" />
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="secondary">
+                <a href="#projects">
+                  View projects
+                  <ArrowDown className="text-base transition-transform duration-200 group-hover/btn:translate-y-0.5" />
+                </a>
+              </Button>
+            </div>
+
+            <ul className="mt-8 flex items-center gap-1 lg:mt-auto lg:pt-8">
+              {SOCIALS.map((s) => {
+                const Icon = SOCIAL_ICON[s.key];
+                return (
+                  <li key={s.key}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      title={s.label}
+                      className="grid size-10 place-items-center rounded-full text-[1.15rem] text-muted transition-colors duration-200 hover:bg-ink/[0.06] hover:text-ink"
+                    >
+                      <Icon />
+                    </a>
+                  </li>
+                );
+              })}
+              <li>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  aria-label="Email"
+                  title="Email"
+                  className="grid size-10 place-items-center rounded-full text-[1.15rem] text-muted transition-colors duration-200 hover:bg-ink/[0.06] hover:text-ink"
+                >
+                  <Mail />
+                </a>
+              </li>
+            </ul>
           </div>
-          <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-sm">
-            <span className="font-medium text-ink">Information Systems, UMN</span>
-            <span className="shrink-0 text-muted">Class of {EDUCATION.details[1].value}</span>
-          </figcaption>
-        </figure>
+
+          {/* Portrait */}
+          <div className="order-2 md:col-span-5 lg:order-1 lg:col-span-4">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-surface">
+              <Image
+                src={SITE.photo}
+                alt={`Portrait of ${SITE.name}`}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 360px"
+                className="object-cover object-[62%_32%]"
+              />
+            </div>
+          </div>
+
+          {/* Fact cards */}
+          <div className="order-3 grid gap-4 sm:grid-cols-3 md:col-span-12 lg:col-span-3 lg:grid-cols-1 lg:grid-rows-3 lg:gap-5">
+            <div className={FACT_CARD}>
+              <p className={FACT_LABEL}>Currently</p>
+              <div>
+                <Image
+                  src={CURRENT_ROLE.logo}
+                  alt={CURRENT_ROLE.org}
+                  width={131}
+                  height={20}
+                  className="h-5 w-auto"
+                />
+                <p className="mt-2.5 text-[0.95rem] font-medium leading-snug text-ink">{CURRENT_ROLE.title}</p>
+              </div>
+            </div>
+
+            <div className={FACT_CARD}>
+              <p className={FACT_LABEL}>
+                Education
+                <GraduationCap className="text-lg text-ink" />
+              </p>
+              <div>
+                <p className="text-[0.95rem] font-semibold leading-snug text-ink">Information Systems</p>
+                <p className="mt-0.5 text-sm text-body">
+                  {EDUCATION.shortSchool} · Class of {EDUCATION.classOf}
+                </p>
+              </div>
+            </div>
+
+            <div className={FACT_CARD}>
+              <p className={FACT_LABEL}>
+                Based in
+                <MapPin className="text-lg text-ink" />
+              </p>
+              <p className="text-[0.95rem] font-semibold leading-snug text-ink">{SITE.location}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

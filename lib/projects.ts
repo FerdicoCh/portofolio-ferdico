@@ -23,6 +23,7 @@ export const PROJECTS: Project[] = [
       "A CNN feature extractor paired with an SVM classifier that detects brain tumor, aneurysm, and cancer from scans at 98% accuracy, served through a Flask web app for real-time prediction.",
     tech: ["Python", "PyTorch", "CNN", "SVM", "Flask", "OpenCV"],
     cover: "/images/projects/Brain.jpeg",
+    coverFit: "contain",
     repo: "https://github.com/FerdicoCh/Brain-Disease-Detection",
   },
   {
@@ -44,6 +45,7 @@ export const PROJECTS: Project[] = [
       "A ResNet-50 model that classifies 15 disease categories across tomato, potato, and pepper leaves at 93% accuracy, deployed as a web app for real-time prediction.",
     tech: ["Python", "PyTorch", "ResNet-50", "Torchvision", "Flask", "OpenCV"],
     cover: "/images/projects/Plant.jpeg",
+    coverFit: "contain",
     repo: "https://github.com/FerdicoCh/Plant-Disease-Detection-with-Deployment",
   },
 ];

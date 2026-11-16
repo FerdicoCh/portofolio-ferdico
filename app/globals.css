@@ -4,22 +4,24 @@
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
 }
 
 @theme {
   --color-paper: #ffffff;
-  --color-surface: #f6f6f6;
-  --color-ink: #111113;
-  --color-body: #3f3f46;
-  --color-muted: #71717a;
-  --color-line: #e6e6e8;
-  --color-accent: #1f3fd0;
+  --color-surface: #f7f7f8;
+  --color-ink: #0b0b0f;
+  --color-body: #45454f;
+  --color-muted: #6f6f7b;
+  --color-line: #e8e8ec;
+  --color-accent: #2447e6;
+  --color-accent-soft: #eef1fe;
 }
 
 /* ---------- Base ---------- */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -38,7 +40,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -50,7 +51,7 @@ body {
 /* ---------- Utilities ---------- */
 @utility container-page {
   width: 100%;
-  max-width: 68rem;
+  max-width: 72rem;
   margin-inline: auto;
   padding-inline: 1.25rem;
 
@@ -59,18 +60,17 @@ body {
   }
 }
 
-/* Text link: underline tipis yang menebal saat hover */
-@utility link {
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
-  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
-  transition:
-    color 150ms,
-    text-decoration-color 150ms;
+/* Faint dot grid, faded out towards the edges */
+@utility dot-grid {
+  background-image: radial-gradient(circle, #d6d6dc 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 20%, transparent 75%);
+}
 
-  &:hover {
-    color: var(--color-accent);
-    text-decoration-color: currentColor;
-  }
+/* Serif italic accent used inside headings */
+@utility accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
