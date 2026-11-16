@@ -1,190 +1,178 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-
-type LinkItem = { label: string; href: `#${string}` };
-
-const LINKS: LinkItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
-];
-
-const BOTTOM_OFFSET = 4; // jarak underline dari bawah teks
-const norm = (s: string) => s.trim().toLowerCase() as `#${string}`;
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { NAV_LINKS, SITE } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Close, Download, Menu } from "@/components/ui/icons";
 
 export default function Nav() {
-  const reduce = useReducedMotion();
+  const [active, setActive] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-  const spanRefs = useRef<Record<string, HTMLSpanElement | null>>({});
-  const [active, setActive] = useState<`#${string}`>("#home");
-  const [underline, setUnderline] = useState({ x: 0, w: 0 });
-
-  // ===== helpers
-  const computeUnderline = useCallback(() => {
-    const wrap = wrapRef.current;
-    const span = spanRefs.current[active];
-    if (!wrap || !span) return;
-    const wb = wrap.getBoundingClientRect();
-    const sb = span.getBoundingClientRect();
-    setUnderline({ x: sb.left - wb.left, w: sb.width });
-  }, [active]);
-
-  const setSpanRef = useCallback(
-    (rawKey: string) => (el: HTMLSpanElement | null) => {
-      spanRefs.current[norm(rawKey)] = el;
-    },
-    []
-  );
-
-  const smoothJump = (href: `#${string}`) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    history.replaceState(null, "", href);
-  };
-
-  // ===== click to scroll
-  const onClick = (e: React.MouseEvent<HTMLAnchorElement>, rawHref: string) => {
-    e.preventDefault();
-    const href = norm(rawHref);
-    smoothJump(href);
-    setActive(href);
-  };
-
-  // ===== scroll-spy berbasis pusat viewport (anti kebalik)
+  // Scroll-spy: section terakhir yang top-nya sudah lewat ~38% tinggi viewport.
   useEffect(() => {
-    const ids: `#${string}`[] = ["#home", "#projects", "#skills", "#contact"];
-    const getSections = () =>
-      ids
-        .map((id) => {
-          const el = document.querySelector(id) as HTMLElement | null;
-          return el ? { id, el } : null;
-        })
-        .filter(Boolean) as { id: `#${string}`; el: HTMLElement }[];
+    let frame = 0;
 
-    let sections = getSections();
-    let ticking = false;
-
-    const recalcSections = () => {
-      sections = getSections();
+    const update = () => {
+      frame = 0;
+      const line = window.innerHeight * 0.38;
+      let current = "";
+      for (const { id } of NAV_LINKS) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      const doc = document.documentElement;
+      if (window.scrollY > 0 && window.innerHeight + window.scrollY >= doc.scrollHeight - 4) {
+        current = NAV_LINKS[NAV_LINKS.length - 1].id;
+      }
+      setActive(current);
+      setScrolled(window.scrollY > 12);
     };
 
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const center = window.scrollY + window.innerHeight / 2;
-
-        // fallback very top & very bottom
-        const doc = document.documentElement;
-        if (window.scrollY < 10) {
-          setActive("#home");
-          ticking = false;
-          return;
-        }
-        if (window.innerHeight + window.scrollY >= (doc.scrollHeight || document.body.scrollHeight) - 2) {
-          setActive("#contact");
-          ticking = false;
-          return;
-        }
-
-        // pilih section dengan jarak pusat terdekat
-        let best: { id: `#${string}`; dist: number } | null = null;
-        for (const s of sections) {
-          const rect = s.el.getBoundingClientRect();
-          const top = rect.top + window.scrollY;
-          const mid = top + rect.height / 2;
-          const dist = Math.abs(mid - center);
-          if (!best || dist < best.dist) best = { id: s.id, dist };
-        }
-        if (best && best.id !== active) setActive(best.id);
-
-        ticking = false;
-      });
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
     };
 
-    const onResize = () => {
-      recalcSections();
-      requestAnimationFrame(onScroll);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    recalcSections();
-    onScroll(); // initial detect
-
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  }, []);
 
-  // underline follow target span
-  useLayoutEffect(() => {
-    const r = requestAnimationFrame(computeUnderline);
-    return () => cancelAnimationFrame(r);
-  }, [computeUnderline]);
-
-  // recompute saat resize & font ready & first mount (double-pass biar stabil)
+  // Tutup menu mobile: Escape / layar melebar ke desktop.
   useEffect(() => {
-    const onResize = () => computeUnderline();
-    window.addEventListener("resize", onResize);
-
-   
-    document.fonts?.ready?.then?.(() => {
-      requestAnimationFrame(() => {
-        computeUnderline();
-        setTimeout(computeUnderline, 60);
-      });
-    });
-
-    requestAnimationFrame(() => {
-      computeUnderline();
-      setTimeout(computeUnderline, 60);
-    });
-
-    return () => window.removeEventListener("resize", onResize);
-  }, [computeUnderline]);
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const mq = window.matchMedia("(min-width: 64rem)");
+    const onChange = () => mq.matches && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    mq.addEventListener("change", onChange);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      mq.removeEventListener("change", onChange);
+    };
+  }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/30 border-b border-white/10">
-      <div className="mx-auto max-w-[1240px] px-6 md:px-10">
-        <div
-          ref={wrapRef}
-          className="relative mx-auto flex h-14 items-center justify-center gap-8 md:gap-10"
-        >
-          {LINKS.map(({ label, href }) => {
-            const isActive = active === norm(href);
-            return (
-              <a
-                key={href}
-                href={href}
-                onClick={(e) => onClick(e, href)}
-                className={[
-                  "relative inline-flex items-center justify-center px-1 text-sm md:text-base transition-colors",
-                  isActive ? "text-[var(--text)]" : "text-[var(--subtle)] hover:text-[var(--text)]",
-                ].join(" ")}
-              >
-                <span ref={setSpanRef(href)} className="inline-block px-0.5">
-                  {label}
-                </span>
-              </a>
-            );
-          })}
-
-          {!reduce && (
-            <motion.div
-              className="pointer-events-none absolute left-0 h-[2px] rounded-full bg-[var(--accent)] will-change-transform"
-              style={{ bottom: BOTTOM_OFFSET }}
-              initial={false}
-              animate={{ x: underline.x, width: underline.w }}
-              transition={{ type: "spring", stiffness: 520, damping: 36, mass: 0.45 }}
-            />
+    <header className="fixed inset-x-0 top-0 z-50 pt-[max(0.75rem,env(safe-area-inset-top))]">
+      <div className="container-page">
+        <nav
+          aria-label="Primary"
+          className={cn(
+            "relative flex h-14 items-center justify-between rounded-full border px-2 transition-[background-color,border-color,box-shadow] duration-300",
+            scrolled || open
+              ? "border-line bg-white/80 shadow-[0_1px_2px_rgba(11,11,15,0.04),0_12px_32px_-16px_rgba(11,11,15,0.18)] backdrop-blur-xl"
+              : "border-transparent bg-transparent"
           )}
-        </div>
+        >
+          {/* Brand */}
+          <a
+            href="#top"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2.5 rounded-full pr-3"
+            aria-label={`${SITE.name} — back to top`}
+          >
+            <span className="grid size-10 place-items-center rounded-full bg-ink text-[0.8rem] font-semibold tracking-tight text-white">
+              {SITE.initials}
+            </span>
+            <span className="text-[0.95rem] font-semibold tracking-tight text-ink">{SITE.name}</span>
+          </a>
+
+          {/* Desktop links */}
+          <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex">
+            {NAV_LINKS.map(({ label, id }) => {
+              const isActive = active === id;
+              return (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    aria-current={isActive ? "true" : undefined}
+                    className={cn(
+                      "relative block rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200",
+                      isActive ? "text-ink" : "text-muted hover:text-ink"
+                    )}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-0 rounded-full bg-ink/[0.06]"
+                        transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                      />
+                    )}
+                    <span className="relative">{label}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Actions */}
+          <div className="flex items-center gap-1.5">
+            <Button asChild size="sm" className="hidden sm:inline-flex">
+              <a href={SITE.resume} download>
+                Resume
+                <Download className="text-[0.95rem]" />
+              </a>
+            </Button>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="grid size-10 place-items-center rounded-full text-xl text-ink transition-colors hover:bg-ink/[0.06] lg:hidden"
+            >
+              {open ? <Close /> : <Menu />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              id="mobile-menu"
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-2 origin-top rounded-[1.75rem] border border-line bg-white/95 p-2 shadow-[0_24px_48px_-20px_rgba(11,11,15,0.25)] backdrop-blur-xl lg:hidden"
+            >
+              <ul>
+                {NAV_LINKS.map(({ label, id }, i) => (
+                  <li key={id}>
+                    <a
+                      href={`#${id}`}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-medium transition-colors",
+                        active === id ? "bg-surface text-ink" : "text-body hover:bg-surface hover:text-ink"
+                      )}
+                    >
+                      {label}
+                      <span className="font-mono text-xs text-muted">0{i + 1}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div className="p-2 pt-3 sm:hidden">
+                <Button asChild className="w-full">
+                  <a href={SITE.resume} download onClick={() => setOpen(false)}>
+                    Download resume
+                    <Download className="text-base" />
+                  </a>
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

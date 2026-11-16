@@ -1,58 +1,62 @@
 // lib/projects.ts
+// Tambah project baru cukup dengan nambah object di array PROJECTS.
+// Gambar taruh di /public/images/projects (nama file case-sensitive di Vercel!).
+
 export type Project = {
   slug: string;
   title: string;
+  category: string;
   summary: string;
-  type: "ML" | "Analytics" | "App";
+  metrics: { value: string; label: string }[];
   tech: string[];
-  kpi?: string;
-  cover: string; // path relatif ke /public, contoh: "/thumbs/bbca-timeseries.jpg"
+  cover: string;
+  /** "contain" buat chart/figure (biar ga kepotong), "cover" buat foto/screenshot. Default: cover */
+  coverFit?: "cover" | "contain";
+  repo: string;
 };
 
 export const PROJECTS: Project[] = [
   {
-    slug: "bbca-timesnet",
-    title: "Stock Forecasting (BBCA) with TimesNet",
-    summary: "Multistep time-series forecasting with robust feature scaling and cross-val.",
-    type: "ML",
-    tech: ["PyTorch", "TimesNet", "Pandas"],
-    kpi: "+7.2% sMAPE vs ARIMA",
-    cover: "/thumbs/bbca.jpg",
+    slug: "brain-disease-detection",
+    title: "Brain Disease Detection",
+    category: "Medical Imaging · Classification",
+    summary:
+      "A CNN feature extractor paired with an SVM classifier that detects brain tumor, aneurysm, and cancer from scans — served through a Flask web app for real-time prediction.",
+    metrics: [
+      { value: "98%", label: "Accuracy" },
+      { value: "3", label: "Conditions detected" },
+    ],
+    tech: ["Python", "PyTorch", "CNN", "SVM", "Flask", "OpenCV"],
+    cover: "/images/projects/Brain.jpeg",
+    repo: "https://github.com/FerdicoCh/Brain-Disease-Detection",
   },
   {
-    slug: "btc-prediction",
-    title: "BTC Price Prediction",
-    summary: "Sequence modeling with attention, data pipeline streaming direct from API.",
-    type: "ML",
-    tech: ["PyTorch", "Attention", "NumPy"],
-    kpi: "MAE ↓ 11.4%",
-    cover: "/thumbs/btc.jpg",
+    slug: "bbca-bitcoin-forecasting",
+    title: "BBCA Stock & Bitcoin Price Forecasting",
+    category: "Time Series · Forecasting",
+    summary:
+      "A TimesNet model that projects BCA (BBCA) stock and Bitcoin prices twelve months ahead, benchmarked against LSTM and evaluated with MAE and MAPE.",
+    metrics: [
+      { value: "12 mo", label: "Forecast horizon" },
+      { value: "2", label: "Assets modeled" },
+    ],
+    tech: ["Python", "PyTorch", "TimesNet", "Pandas", "Matplotlib", "Seaborn"],
+    cover: "/images/projects/bitcoin.jpeg",
+    coverFit: "contain",
+    repo: "https://github.com/FerdicoCh/BBCA-Stocks-Bitcoin-Price-Forecasting",
   },
   {
-    slug: "plant-disease-resnet",
-    title: "Plant Disease Classifier (ResNet)",
-    summary: "Transfer learning + fine-tune scheduler; grad-cam explainability.",
-    type: "ML",
-    tech: ["ResNet", "Torchvision"],
-    kpi: "F1 0.93",
-    cover: "/thumbs/plant.jpg",
-  },
-  {
-    slug: "raketinaja-analytics",
-    title: "RaketinAja: Funnel + Cohort",
-    summary: "End-to-end analytics: GA4 export → dbt models → dashboard KPI.",
-    type: "Analytics",
-    tech: ["SQL", "dbt", "BigQuery"],
-    kpi: "CAC ↓ 18%",
-    cover: "/thumbs/analytics.jpg",
-  },
-  {
-    slug: "cv-website",
-    title: "Portfolio Website",
-    summary: "Next.js + Tailwind + Framer Motion with a11y-first navigation.",
-    type: "App",
-    tech: ["Next.js", "Tailwind", "Framer"],
-    kpi: "Lighthouse 98/100",
-    cover: "/thumbs/portfolio.jpg",
+    slug: "plant-disease-detection",
+    title: "Plant Disease Detection",
+    category: "Computer Vision · Transfer Learning",
+    summary:
+      "A ResNet-50 transfer-learning model that classifies diseases across tomato, potato, and pepper leaves, deployed as a web app for real-time prediction and visualization.",
+    metrics: [
+      { value: "93%", label: "Accuracy" },
+      { value: "15", label: "Disease classes" },
+    ],
+    tech: ["Python", "PyTorch", "ResNet-50", "Torchvision", "Flask", "OpenCV"],
+    cover: "/images/projects/Plant.jpeg",
+    repo: "https://github.com/FerdicoCh/Plant-Disease-Detection-with-Deployment",
   },
 ];

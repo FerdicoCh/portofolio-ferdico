@@ -1,1 +1,6 @@
-export default function Page() { return <main className="p-8">About</main>; }
+import { redirect } from "next/navigation";
+
+// Konten About sekarang ada di halaman utama.
+export default function AboutPage() {
+  redirect("/#about");
+}
