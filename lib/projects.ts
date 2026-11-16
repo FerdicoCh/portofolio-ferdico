@@ -7,7 +7,6 @@ export type Project = {
   title: string;
   category: string;
   summary: string;
-  metrics: { value: string; label: string }[];
   tech: string[];
   cover: string;
   /** "contain" buat chart/figure (biar ga kepotong), "cover" buat foto/screenshot. Default: cover */
@@ -19,13 +18,9 @@ export const PROJECTS: Project[] = [
   {
     slug: "brain-disease-detection",
     title: "Brain Disease Detection",
-    category: "Medical Imaging · Classification",
+    category: "Medical imaging, classification",
     summary:
-      "A CNN feature extractor paired with an SVM classifier that detects brain tumor, aneurysm, and cancer from scans — served through a Flask web app for real-time prediction.",
-    metrics: [
-      { value: "98%", label: "Accuracy" },
-      { value: "3", label: "Conditions detected" },
-    ],
+      "A CNN feature extractor paired with an SVM classifier that detects brain tumor, aneurysm, and cancer from scans at 98% accuracy, served through a Flask web app for real-time prediction.",
     tech: ["Python", "PyTorch", "CNN", "SVM", "Flask", "OpenCV"],
     cover: "/images/projects/Brain.jpeg",
     repo: "https://github.com/FerdicoCh/Brain-Disease-Detection",
@@ -33,13 +28,9 @@ export const PROJECTS: Project[] = [
   {
     slug: "bbca-bitcoin-forecasting",
     title: "BBCA Stock & Bitcoin Price Forecasting",
-    category: "Time Series · Forecasting",
+    category: "Time-series forecasting",
     summary:
-      "A TimesNet model that projects BCA (BBCA) stock and Bitcoin prices twelve months ahead, benchmarked against LSTM and evaluated with MAE and MAPE.",
-    metrics: [
-      { value: "12 mo", label: "Forecast horizon" },
-      { value: "2", label: "Assets modeled" },
-    ],
+      "A TimesNet model that projects BCA (BBCA) stock and Bitcoin prices twelve months ahead, built on cleaned historical market data and benchmarked against LSTM using MAE and MAPE.",
     tech: ["Python", "PyTorch", "TimesNet", "Pandas", "Matplotlib", "Seaborn"],
     cover: "/images/projects/bitcoin.jpeg",
     coverFit: "contain",
@@ -48,13 +39,9 @@ export const PROJECTS: Project[] = [
   {
     slug: "plant-disease-detection",
     title: "Plant Disease Detection",
-    category: "Computer Vision · Transfer Learning",
+    category: "Computer vision, transfer learning",
     summary:
-      "A ResNet-50 transfer-learning model that classifies diseases across tomato, potato, and pepper leaves, deployed as a web app for real-time prediction and visualization.",
-    metrics: [
-      { value: "93%", label: "Accuracy" },
-      { value: "15", label: "Disease classes" },
-    ],
+      "A ResNet-50 model that classifies 15 disease categories across tomato, potato, and pepper leaves at 93% accuracy, deployed as a web app for real-time prediction.",
     tech: ["Python", "PyTorch", "ResNet-50", "Torchvision", "Flask", "OpenCV"],
     cover: "/images/projects/Plant.jpeg",
     repo: "https://github.com/FerdicoCh/Plant-Disease-Detection-with-Deployment",

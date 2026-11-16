@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Check, Copy } from "@/components/ui/icons";
 
 export default function CopyEmail({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
@@ -24,18 +22,13 @@ export default function CopyEmail({ email }: { email: string }) {
   };
 
   return (
-    <Button type="button" variant="secondary" size="lg" onClick={copy} aria-live="polite">
-      {copied ? (
-        <>
-          <Check className="text-base text-emerald-600" />
-          Copied to clipboard
-        </>
-      ) : (
-        <>
-          <Copy className="text-base text-muted" />
-          Copy email
-        </>
-      )}
-    </Button>
+    <button
+      type="button"
+      onClick={copy}
+      aria-live="polite"
+      className="inline-flex h-9 items-center rounded-md border border-line px-3 text-sm font-medium text-ink transition-colors duration-150 hover:border-ink"
+    >
+      {copied ? "Copied" : "Copy address"}
+    </button>
   );
 }

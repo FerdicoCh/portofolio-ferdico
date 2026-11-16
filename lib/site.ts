@@ -3,11 +3,10 @@
 
 export const SITE = {
   name: "Ferdico Chandra",
-  initials: "FC",
-  role: "Machine Learning & Data",
+  role: "Artificial Intelligence & Data",
   url: "https://ferdico-chandra.vercel.app",
   description:
-    "Information Systems undergraduate at Universitas Multimedia Nusantara building machine learning models and deploying them as real web applications.",
+    "Information Systems undergraduate at Universitas Multimedia Nusantara working on artificial intelligence, data analytics, and web development.",
   location: "Tangerang, Indonesia",
   email: "ferdicocha@gmail.com",
   resume: "/resume.pdf",
@@ -22,155 +21,132 @@ export const NAV_LINKS = [
   { label: "Contact", id: "contact" },
 ] as const;
 
-export type SocialKey = "linkedin" | "github" | "instagram" | "email";
+export const SOCIALS = [
+  { label: "LinkedIn", href: "https://linkedin.com/in/ferdico-chandra" },
+  { label: "GitHub", href: "https://github.com/FerdicoCh" },
+  { label: "Instagram", href: "https://instagram.com/ferdico.ch" },
+] as const;
 
-export const SOCIALS: { key: SocialKey; label: string; handle: string; href: string }[] = [
-  {
-    key: "linkedin",
-    label: "LinkedIn",
-    handle: "in/ferdico-chandra",
-    href: "https://linkedin.com/in/ferdico-chandra",
-  },
-  {
-    key: "github",
-    label: "GitHub",
-    handle: "@FerdicoCh",
-    href: "https://github.com/FerdicoCh",
-  },
-  {
-    key: "instagram",
-    label: "Instagram",
-    handle: "@ferdico.ch",
-    href: "https://instagram.com/ferdico.ch",
-  },
-  {
-    key: "email",
-    label: "Email",
-    handle: SITE.email,
-    href: `mailto:${SITE.email}`,
-  },
-];
-
-export const STATS = [
-  { value: "3.74", suffix: "/4.00", label: "Cumulative GPA" },
-  { value: "98", suffix: "%", label: "Top model accuracy" },
-  { value: "3", suffix: "", label: "End-to-end ML projects" },
-  { value: "2027", suffix: "", label: "Expected graduation" },
+// Baris fakta singkat di hero.
+export const HERO_FACTS = [
+  // Ganti baris ini setelah magang selesai (8 Des 2026).
+  { label: "Currently", value: "Cost Management Intern at CIMB Niaga" },
+  { label: "Based in", value: "Tangerang, Indonesia" },
 ] as const;
 
 export const FOCUS_AREAS = [
   {
-    key: "ml",
-    title: "Machine Learning",
-    body: "Predictive and deep learning models — CNN, ResNet, SVM, and TimesNet — for computer vision and time-series problems.",
+    title: "Artificial Intelligence",
+    body: "Predictive and deep learning models — CNN, ResNet, SVM, TimesNet — for computer vision and time-series forecasting.",
   },
   {
-    key: "data",
-    title: "Data Analytics & Visualization",
-    body: "Turning raw data into clear insight with SQL, Pandas, Tableau, Power BI, and SAS Visual Analytics.",
+    title: "Data Analytics",
+    body: "SQL-based data processing, exploratory analysis in Python, and dashboards in Tableau, Power BI, and SAS Visual Analytics.",
   },
   {
-    key: "web",
     title: "Web Development",
-    body: "Shipping models as interactive apps with Flask and Streamlit, on top of HTML, CSS, JavaScript, and PHP.",
+    body: "Full-stack applications with Laravel, Flask, and Next.js, built on structured, well-normalized databases.",
   },
 ] as const;
 
-export const FACTS = [
-  { label: "Based in", value: "Tangerang, Banten, Indonesia" },
-  { label: "Studying", value: "Information Systems, UMN" },
-  { label: "Languages", value: "Indonesian (native), English (intermediate)" },
-  { label: "Looking for", value: "ML / Data Science internships" },
-] as const;
-
-export type TimelineItem = {
-  kind: "Experience" | "Education";
-  period?: string;
+export type ExperienceItem = {
+  period: string;
   title: string;
   org: string;
-  summary?: string;
-  highlights?: { label: string; value: string }[];
   bullets?: string[];
-  chips?: string[];
 };
 
-export const TIMELINE: TimelineItem[] = [
+// TODO: tambah deskripsi kerja (bullets) untuk entri CIMB Niaga.
+export const EXPERIENCE: ExperienceItem[] = [
   {
-    kind: "Experience",
+    period: "Jun 2026 — Dec 2026",
+    title: "Cost Management Intern",
+    org: "CIMB Niaga",
+  },
+  {
+    period: "Feb 2025 — Jun 2025",
     title: "Database Systems Laboratory Assistant",
     org: "Universitas Multimedia Nusantara",
     bullets: [
-      "Assisted in running laboratory sessions for the Database Systems course.",
-      "Taught SQL fundamentals — data definition, data manipulation, and query operations.",
-      "Guided students through aggregate functions and advanced queries for data analysis.",
-      "Explained database normalization up to the Third Normal Form (3NF).",
-      "Provided hands-on mentoring and troubleshooting during lab sessions.",
-    ],
-  },
-  {
-    kind: "Education",
-    period: "2023 — 2027",
-    title: "Information Systems, Undergraduate",
-    org: "Universitas Multimedia Nusantara",
-    highlights: [
-      { label: "Cumulative GPA", value: "3.74 / 4.00" },
-      { label: "Recent semester GPA", value: "3.97 / 4.00" },
-    ],
-    chips: [
-      "Database Systems",
-      "Big Data Analytics",
-      "Machine Learning",
-      "Data Visualization",
-      "Web Development",
+      "Mentored undergraduate students in SQL-based data querying, aggregation, and analytical operations on relational databases.",
+      "Guided database schema design and normalization up to Third Normal Form (3NF) to keep data consistent.",
+      "Helped solve structured data problems, including query optimization and relational logic, during hands-on lab sessions.",
+      "Translated technical database concepts into clear explanations for students from non-technical backgrounds.",
     ],
   },
 ];
 
-export const SKILL_GROUPS = [
+export const EDUCATION = {
+  period: "Aug 2023 — Present",
+  degree: "Bachelor in Information Systems",
+  school: "Universitas Multimedia Nusantara",
+  details: [
+    { label: "Cumulative GPA", value: "3.80 / 4.00" },
+    { label: "Expected graduation", value: "2027" },
+  ],
+  coursework: [
+    "Database Systems",
+    "Big Data Analytics",
+    "Data Analysis",
+    "Data Visualization",
+    "Data Modeling",
+    "Deep Learning",
+    "Algorithm and Data Structure",
+    "Web Design and Development",
+    "Object-Oriented Programming",
+  ],
+} as const;
+
+export const SKILLS = [
   {
-    key: "code",
-    title: "Programming & Data",
-    blurb: "The everyday toolkit for wrangling, querying, and scripting.",
-    items: ["Python", "Pandas", "NumPy", "Scikit-learn", "SQL (MySQL)", "Java", "C#"],
-  },
-  {
-    key: "ml",
-    title: "Machine Learning & AI",
-    blurb: "From classic supervised learning to deep architectures.",
+    label: "Artificial Intelligence",
     items: [
       "PyTorch",
       "TensorFlow / Keras",
+      "Scikit-learn",
       "CNN",
       "RNN",
       "ResNet",
       "TimesNet",
-      "Time Series Forecasting",
-      "Classification",
-      "Regression",
-      "Clustering",
+      "Time-series forecasting",
     ],
   },
   {
-    key: "viz",
-    title: "Data Visualization",
-    blurb: "Quick EDA plots through to full, shareable dashboards.",
+    label: "Data & Programming",
+    items: [
+      "Python (Pandas, NumPy)",
+      "SQL (MySQL, Google BigQuery)",
+      "MongoDB",
+      "Data cleaning & EDA",
+      "Java",
+      "C#",
+    ],
+  },
+  {
+    label: "Visualization & BI",
     items: ["Tableau", "Power BI", "SAS Visual Analytics", "Matplotlib", "Seaborn"],
   },
   {
-    key: "web",
-    title: "Web & Deployment",
-    blurb: "Getting models out of the notebook and in front of users.",
-    items: ["Flask", "Streamlit", "HTML", "CSS", "JavaScript", "PHP", "Laravel", "Next.js"],
+    label: "Web Development",
+    items: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "PHP",
+      "Laravel",
+      "CodeIgniter",
+      "Flask",
+      "Streamlit",
+    ],
   },
-] as const;
-
-export const TOOLS = [
-  { name: "Jupyter Notebook", icon: "/images/tools/jupyter.svg" },
-  { name: "VS Code", icon: "/images/tools/vscode.svg" },
-  { name: "PyCharm", icon: "/images/tools/pycharm.svg" },
-  { name: "Google Colab", icon: "/images/tools/colab.svg" },
-  { name: "Tableau", icon: "/images/tools/tableau.svg" },
-  { name: "Power BI", icon: "/images/tools/powerbi.svg", mono: true },
-  { name: "SAS Visual Analytics", icon: "/images/tools/sas.svg" },
-  { name: "GitHub", icon: "/images/tools/github.svg", mono: true },
+  {
+    label: "Tools",
+    items: ["Git & GitHub", "Jupyter Notebook", "Google Colab", "VS Code", "PyCharm"],
+  },
+  {
+    label: "Languages",
+    items: ["Indonesian (native)", "English (intermediate)"],
+  },
 ] as const;
