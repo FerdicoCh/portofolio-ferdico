@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { GraduationCap } from "@/components/ui/icons";
 import { EDUCATION, EXPERIENCE, type ExperienceItem } from "@/lib/site";
 
 function LogoTile({ item }: { item: ExperienceItem }) {
@@ -76,8 +75,14 @@ export default function Experience() {
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm text-muted">Education</p>
-                <span className="grid size-10 place-items-center rounded-2xl bg-accent-soft text-lg text-accent">
-                  <GraduationCap />
+                <span className="relative size-12 shrink-0 overflow-hidden rounded-2xl border border-line bg-white">
+                  <Image
+                    src={EDUCATION.logo}
+                    alt={`${EDUCATION.school} logo`}
+                    fill
+                    sizes="48px"
+                    className="object-contain p-2"
+                  />
                 </span>
               </div>
 

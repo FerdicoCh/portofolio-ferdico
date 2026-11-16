@@ -1,5 +1,7 @@
 // lib/projects.ts
 // Tambah project baru cukup dengan nambah object di array PROJECTS.
+// - Punya `cover` → tampil sebagai kartu besar bergambar.
+// - Tanpa `cover` → tampil sebagai kartu ringkas di bawahnya.
 // Gambar taruh di /public/images/projects (nama file case-sensitive di Vercel!).
 
 export type Project = {
@@ -8,10 +10,11 @@ export type Project = {
   category: string;
   summary: string;
   tech: string[];
-  cover: string;
+  cover?: string;
   /** "contain" buat chart/figure (biar ga kepotong), "cover" buat foto/screenshot. Default: cover */
   coverFit?: "cover" | "contain";
-  repo: string;
+  /** Link repo / demo. Kalau kosong, kartu tidak bisa diklik. */
+  repo?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -47,5 +50,21 @@ export const PROJECTS: Project[] = [
     cover: "/images/projects/Plant.jpeg",
     coverFit: "contain",
     repo: "https://github.com/FerdicoCh/Plant-Disease-Detection-with-Deployment",
+  },
+  {
+    slug: "tourism-travel-pattern-analysis",
+    title: "Tourism Travel Pattern Analysis in Indonesia",
+    category: "Data visualization, dashboard",
+    summary:
+      "An interactive Tableau dashboard that analyzes domestic tourism travel patterns across Indonesian provinces, using geospatial maps, ranking views, and dynamic Top-N filtering to surface regional disparities.",
+    tech: ["Tableau", "Calculated Fields", "Parameters", "Table Calculations"],
+  },
+  {
+    slug: "trash2treasure",
+    title: "Trash2Treasure",
+    category: "Full-stack web application",
+    summary:
+      "A waste management and recycling platform built on Laravel's MVC architecture, with authentication, role-based access, CRUD features, and a normalized MySQL schema, validated through black-box testing.",
+    tech: ["Laravel", "PHP", "MySQL", "HTML", "CSS"],
   },
 ];

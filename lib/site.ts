@@ -96,7 +96,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Feb 2025 — Jun 2025",
     title: "Database Systems Laboratory Assistant",
     org: "Universitas Multimedia Nusantara",
-    monogram: "UMN",
+    logo: "/images/logos/umn.png",
     bullets: [
       "Mentored undergraduate students in SQL-based data querying, aggregation, and analytical operations on relational databases.",
       "Guided database schema design and normalization up to Third Normal Form (3NF) to keep data consistent.",
@@ -111,6 +111,7 @@ export const EDUCATION = {
   degree: "Bachelor in Information Systems",
   school: "Universitas Multimedia Nusantara",
   shortSchool: "UMN",
+  logo: "/images/logos/umn.png",
   gpa: "3.80",
   gpaScale: "4.00",
   classOf: "2027",
