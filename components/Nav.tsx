@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { NAV_LINKS, SITE } from "@/lib/site";
+import { NAV_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Close, Download, Menu } from "@/components/ui/icons";
+import { Close, Menu } from "@/components/ui/icons";
 
 export default function Nav() {
   const [active, setActive] = useState("");
@@ -66,27 +65,14 @@ export default function Nav() {
         <nav
           aria-label="Primary"
           className={cn(
-            "relative flex h-14 items-center justify-between rounded-full border px-2 transition-[background-color,border-color,box-shadow] duration-300",
+            "ml-auto flex h-12 w-fit items-center rounded-full border p-1 transition-[background-color,border-color,box-shadow] duration-300 lg:mx-auto",
             scrolled || open
               ? "border-line bg-white/80 shadow-[0_1px_2px_rgba(11,11,15,0.04),0_12px_32px_-16px_rgba(11,11,15,0.18)] backdrop-blur-xl"
               : "border-transparent bg-transparent"
           )}
         >
-          {/* Brand */}
-          <a
-            href="#top"
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-2.5 rounded-full pr-3"
-            aria-label={`${SITE.name} — back to top`}
-          >
-            <span className="grid size-10 place-items-center rounded-full bg-ink text-[0.8rem] font-semibold tracking-tight text-white">
-              {SITE.initials}
-            </span>
-            <span className="text-[0.95rem] font-semibold tracking-tight text-ink">{SITE.name}</span>
-          </a>
-
           {/* Desktop links */}
-          <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex">
+          <ul className="hidden items-center gap-0.5 lg:flex">
             {NAV_LINKS.map(({ label, id }) => {
               const isActive = active === id;
               return (
@@ -113,25 +99,17 @@ export default function Nav() {
             })}
           </ul>
 
-          {/* Actions */}
-          <div className="flex items-center gap-1.5">
-            <Button asChild size="sm" className="hidden sm:inline-flex">
-              <a href={SITE.resume} download>
-                Resume
-                <Download className="text-[0.95rem]" />
-              </a>
-            </Button>
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="grid size-10 place-items-center rounded-full text-xl text-ink transition-colors hover:bg-ink/[0.06] lg:hidden"
-            >
-              {open ? <Close /> : <Menu />}
-            </button>
-          </div>
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="grid size-10 place-items-center rounded-full text-xl text-ink transition-colors hover:bg-ink/[0.06] lg:hidden"
+          >
+            {open ? <Close /> : <Menu />}
+          </button>
         </nav>
 
         {/* Mobile menu */}
@@ -162,14 +140,6 @@ export default function Nav() {
                   </li>
                 ))}
               </ul>
-              <div className="p-2 pt-3 sm:hidden">
-                <Button asChild className="w-full">
-                  <a href={SITE.resume} download onClick={() => setOpen(false)}>
-                    Download resume
-                    <Download className="text-base" />
-                  </a>
-                </Button>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>

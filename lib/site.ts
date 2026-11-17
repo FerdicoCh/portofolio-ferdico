@@ -173,7 +173,7 @@ export const TOOLS = [
   { name: "PyCharm", icon: "/images/tools/pycharm.svg" },
   { name: "Google Colab", icon: "/images/tools/colab.svg" },
   { name: "Tableau", icon: "/images/tools/tableau.svg" },
-  { name: "Power BI", icon: "/images/tools/powerbi.svg", mono: true },
+  { name: "Power BI", icon: "/images/tools/powerbi.svg" },
   { name: "SAS Visual Analytics", icon: "/images/tools/sas.svg" },
   { name: "GitHub", icon: "/images/tools/github.svg", mono: true },
 ] as const;
