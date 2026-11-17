@@ -11,7 +11,7 @@ export const SITE = {
   location: "Tangerang, Indonesia",
   email: "ferdicocha@gmail.com",
   resume: "/resume.pdf",
-  photo: "/images/ppaku.jpg",
+  photo: "/images/ferdico-portrait.jpg",
 } as const;
 
 export const NAV_LINKS = [
