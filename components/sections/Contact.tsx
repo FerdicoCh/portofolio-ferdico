@@ -1,6 +1,7 @@
 import Reveal from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/button";
 import CopyEmail from "@/components/ui/CopyEmail";
+import { MaskText } from "@/components/ui/motion";
 import { ArrowUpRight, GitHub, Instagram, LinkedIn, Mail } from "@/components/ui/icons";
 import { SITE, SOCIALS, type SocialKey } from "@/lib/site";
 
@@ -14,12 +15,13 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 sm:py-32">
       <div className="container-page">
-        <Reveal y={24}>
+        <Reveal y={32} scale={0.96}>
           <div className="rounded-[2rem] bg-ink p-7 text-white sm:rounded-[2.5rem] sm:p-12 lg:p-16">
             <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-10">
               <div className="lg:col-span-7">
                 <h2 className="text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-balance">
-                  Let&apos;s get in <span className="accent-serif text-[1.08em]">touch.</span>
+                  <MaskText text="Let's get in" delay={0.25} />{" "}
+                  <MaskText text="touch." className="accent-serif text-[1.08em]" delay={0.46} />
                 </h2>
                 <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-white/70 text-pretty">
                   For internship openings, project collaborations, or a conversation about AI and data,

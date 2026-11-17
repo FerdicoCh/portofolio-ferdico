@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { StaggerItem, StaggerList } from "@/components/ui/motion";
 import { LANGUAGES, SKILL_GROUPS, TOOLS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -20,13 +21,13 @@ export default function Skills() {
               <Reveal delay={(i % 2) * 0.07} className="h-full">
                 <div className={CARD}>
                   <h3 className={CARD_TITLE}>{group.title}</h3>
-                  <ul className="mt-5 flex flex-wrap gap-2">
+                  <StaggerList className="mt-5 flex flex-wrap gap-2" delay={0.15}>
                     {group.items.map((item) => (
-                      <li key={item} className={CHIP}>
+                      <StaggerItem key={item} className={CHIP}>
                         {item}
-                      </li>
+                      </StaggerItem>
                     ))}
-                  </ul>
+                  </StaggerList>
                 </div>
               </Reveal>
             </li>
@@ -38,9 +39,9 @@ export default function Skills() {
               <div className={cn(CARD, "grid gap-8 lg:grid-cols-12 lg:gap-10")}>
                 <div className="lg:col-span-8">
                   <h3 className={CARD_TITLE}>Tools</h3>
-                  <ul className="mt-5 flex flex-wrap gap-2">
+                  <StaggerList className="mt-5 flex flex-wrap gap-2" stagger={0.05} delay={0.15}>
                     {TOOLS.map((tool) => (
-                      <li
+                      <StaggerItem
                         key={tool.name}
                         className="inline-flex items-center gap-2.5 rounded-full bg-surface py-1.5 pl-2.5 pr-4 text-sm text-ink"
                       >
@@ -54,9 +55,9 @@ export default function Skills() {
                           />
                         </span>
                         {tool.name}
-                      </li>
+                      </StaggerItem>
                     ))}
-                  </ul>
+                  </StaggerList>
                 </div>
 
                 <div className="lg:col-span-4 lg:border-l lg:border-line lg:pl-10">

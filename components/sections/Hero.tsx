@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Reveal from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/button";
+import { HeroPortrait, MaskText, StaggerGroup, StaggerItem } from "@/components/ui/motion";
 import {
   ArrowDown,
   Download,
@@ -28,13 +30,13 @@ export default function Hero() {
         {/* Nama selebar container (ukuran font ikut lebar container) */}
         <div className="@container">
           <h1 className="whitespace-nowrap text-[13.9cqw] font-semibold leading-[0.95] tracking-[-0.06em] text-ink">
-            {SITE.name}
+            <MaskText text={SITE.name} by="char" immediate stagger={0.03} duration={1.05} />
           </h1>
         </div>
 
         <div className="mt-8 grid gap-5 sm:mt-12 md:grid-cols-12 lg:gap-6">
           {/* Intro */}
-          <div className="order-1 flex flex-col md:col-span-7 lg:order-2 lg:col-span-5 lg:px-3">
+          <Reveal immediate delay={0.55} className="order-1 flex flex-col md:col-span-7 lg:order-2 lg:col-span-5 lg:px-3">
             <p className="text-[clamp(1.375rem,2.4vw,1.75rem)] leading-[1.22] tracking-[-0.025em] text-ink text-pretty">
               Information Systems undergraduate working on{" "}
               <em className="accent-serif text-[1.12em] text-accent">artificial intelligence</em>, data
@@ -88,11 +90,11 @@ export default function Hero() {
                 </a>
               </li>
             </ul>
-          </div>
+          </Reveal>
 
           {/* Portrait */}
           <div className="order-2 md:col-span-5 lg:order-1 lg:col-span-4">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-surface">
+            <HeroPortrait className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-surface">
               <Image
                 src={SITE.photo}
                 alt={`Portrait of ${SITE.name}`}
@@ -101,12 +103,17 @@ export default function Hero() {
                 sizes="(max-width: 768px) 100vw, 360px"
                 className="object-cover"
               />
-            </div>
+            </HeroPortrait>
           </div>
 
           {/* Fact cards */}
-          <div className="order-3 grid gap-4 sm:grid-cols-3 md:col-span-12 lg:col-span-3 lg:grid-cols-1 lg:grid-rows-3 lg:gap-5">
-            <div className={FACT_CARD}>
+          <StaggerGroup
+            immediate
+            delay={0.7}
+            stagger={0.1}
+            className="order-3 grid gap-4 sm:grid-cols-3 md:col-span-12 lg:col-span-3 lg:grid-cols-1 lg:grid-rows-3 lg:gap-5"
+          >
+            <StaggerItem as="div" className={FACT_CARD}>
               <p className={FACT_LABEL}>Currently</p>
               <div>
                 <Image
@@ -118,9 +125,9 @@ export default function Hero() {
                 />
                 <p className="mt-2.5 text-[0.95rem] font-medium leading-snug text-ink">{CURRENT_ROLE.title}</p>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className={FACT_CARD}>
+            <StaggerItem as="div" className={FACT_CARD}>
               <p className={FACT_LABEL}>
                 Education
                 <GraduationCap className="text-lg text-ink" />
@@ -131,16 +138,16 @@ export default function Hero() {
                   {EDUCATION.shortSchool} · Class of {EDUCATION.classOf}
                 </p>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className={FACT_CARD}>
+            <StaggerItem as="div" className={FACT_CARD}>
               <p className={FACT_LABEL}>
                 Based in
                 <MapPin className="text-lg text-ink" />
               </p>
               <p className="text-[0.95rem] font-semibold leading-snug text-ink">{SITE.location}</p>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerGroup>
         </div>
       </div>
     </section>

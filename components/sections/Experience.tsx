@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { CountUp, StaggerItem, StaggerList } from "@/components/ui/motion";
 import { EDUCATION, EXPERIENCE, type ExperienceItem } from "@/lib/site";
 
 function LogoTile({ item }: { item: ExperienceItem }) {
@@ -33,7 +34,7 @@ export default function Experience() {
             {EXPERIENCE.map((item, i) => (
               <li key={`${item.org}-${item.title}`}>
                 <Reveal delay={i * 0.06}>
-                  <article className="flex gap-4 rounded-3xl border border-line bg-white p-5 sm:gap-6 sm:p-7">
+                  <article className="flex gap-4 rounded-3xl border border-line bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/15 hover:shadow-[0_24px_48px_-32px_rgba(11,11,15,0.3)] sm:gap-6 sm:p-7">
                     <LogoTile item={item} />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-col gap-x-4 gap-y-1 sm:flex-row sm:items-baseline sm:justify-between">
@@ -48,16 +49,16 @@ export default function Experience() {
                       </p>
 
                       {item.bullets && (
-                        <ul className="mt-5 space-y-2.5">
+                        <StaggerList className="mt-5 space-y-2.5" stagger={0.08} delay={0.2}>
                           {item.bullets.map((b) => (
-                            <li
+                            <StaggerItem
                               key={b}
                               className="relative pl-5 text-[0.95rem] leading-relaxed text-body before:absolute before:left-0 before:top-[0.68em] before:size-1.5 before:rounded-full before:bg-ink/25"
                             >
                               {b}
-                            </li>
+                            </StaggerItem>
                           ))}
-                        </ul>
+                        </StaggerList>
                       )}
                     </div>
                   </article>
@@ -95,7 +96,7 @@ export default function Experience() {
               <div className="mt-6 border-t border-line pt-5">
                 <p className="text-sm text-muted">Cumulative GPA</p>
                 <p className="mt-1 text-[2.75rem] font-semibold leading-none tracking-[-0.05em] text-ink">
-                  {EDUCATION.gpa}
+                  <CountUp value={Number(EDUCATION.gpa)} decimals={2} />
                   <span className="ml-1 text-lg font-medium tracking-normal text-muted">
                     / {EDUCATION.gpaScale}
                   </span>
@@ -104,13 +105,13 @@ export default function Experience() {
 
               <div className="mt-6 border-t border-line pt-5">
                 <p className="text-sm text-muted">Relevant coursework</p>
-                <ul className="mt-3 flex flex-wrap gap-1.5">
+                <StaggerList className="mt-3 flex flex-wrap gap-1.5" delay={0.2}>
                   {EDUCATION.coursework.map((c) => (
-                    <li key={c} className="rounded-full bg-surface px-3 py-1 text-[0.8125rem] text-body">
+                    <StaggerItem key={c} className="rounded-full bg-surface px-3 py-1 text-[0.8125rem] text-body">
                       {c}
-                    </li>
+                    </StaggerItem>
                   ))}
-                </ul>
+                </StaggerList>
               </div>
             </aside>
           </Reveal>

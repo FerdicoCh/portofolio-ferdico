@@ -1,6 +1,7 @@
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { BarChart, Cpu, Globe } from "@/components/ui/icons";
+import { ScrollWords } from "@/components/ui/motion";
 import { FOCUS_AREAS } from "@/lib/site";
 
 const FOCUS_ICON = { ai: Cpu, data: BarChart, web: Globe } as const;
@@ -11,13 +12,17 @@ export default function About() {
       <div className="container-page">
         <SectionHeader title="About" />
 
-        <Reveal className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-10">
-          <p className="text-[clamp(1.5rem,2.7vw,2.125rem)] leading-[1.22] tracking-[-0.03em] text-ink text-pretty lg:col-span-7">
-            I&apos;m an Information Systems undergraduate focused on artificial intelligence, data
-            analysis, and web development.{" "}
-            <span className="text-muted">Most of my work sits where those three meet.</span>
-          </p>
-          <div className="space-y-5 text-[1.0625rem] leading-relaxed text-body text-pretty lg:col-span-5 lg:pt-2">
+        <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-10">
+          <ScrollWords
+            className="text-[clamp(1.5rem,2.7vw,2.125rem)] leading-[1.22] tracking-[-0.03em] text-ink text-pretty lg:col-span-7"
+            segments={[
+              {
+                text: "I'm an Information Systems undergraduate focused on artificial intelligence, data analysis, and web development.",
+              },
+              { text: "Most of my work sits where those three meet.", className: "text-muted" },
+            ]}
+          />
+          <Reveal delay={0.15} className="space-y-5 text-[1.0625rem] leading-relaxed text-body text-pretty lg:col-span-5 lg:pt-2">
             <p>
               That means turning raw datasets into insight with SQL, Python, and dashboards, training
               predictive and deep learning models, and building the web applications that make them
@@ -29,8 +34,8 @@ export default function About() {
               Universitas Multimedia Nusantara, mentoring students in SQL and relational database
               design.
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <ul className="mt-14 grid gap-5 md:grid-cols-3">
           {FOCUS_AREAS.map((area, i) => {

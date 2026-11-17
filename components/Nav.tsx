@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NAV_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Close, Menu } from "@/components/ui/icons";
+import { EASE, ScrollProgress } from "@/components/ui/motion";
 
 export default function Nav() {
   const [active, setActive] = useState("");
@@ -60,7 +61,13 @@ export default function Nav() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-[max(0.75rem,env(safe-area-inset-top))]">
+    <motion.header
+      className="fixed inset-x-0 top-0 z-50 pt-[max(0.75rem,env(safe-area-inset-top))]"
+      initial={{ y: -24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.9, ease: EASE }}
+    >
+      <ScrollProgress />
       <div className="container-page">
         <nav
           aria-label="Primary"
@@ -144,6 +151,6 @@ export default function Nav() {
           )}
         </AnimatePresence>
       </div>
-    </header>
+    </motion.header>
   );
 }
