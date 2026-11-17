@@ -29,8 +29,8 @@ export default function About() {
               usable.
             </p>
             <p>
-              I&apos;m currently a Cost Management Intern at CIMB Niaga, following an internship at
-              BMKG. Before that I was a laboratory assistant for the Database Systems course at
+              I&apos;m currently a Cost Management Intern at CIMB Niaga, following a data engineering
+              internship at BMKG. Before that I was a laboratory assistant for the Database Systems course at
               Universitas Multimedia Nusantara, mentoring students in SQL and relational database
               design.
             </p>

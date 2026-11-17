@@ -77,7 +77,7 @@ export type ExperienceItem = {
   bullets?: string[];
 };
 
-// TODO: tambah posisi persisnya di BMKG + deskripsi kerja (bullets) untuk CIMB Niaga dan BMKG.
+// TODO: tambah deskripsi kerja (bullets) untuk CIMB Niaga.
 export const EXPERIENCE: ExperienceItem[] = [
   {
     period: "Jun 2026 — Dec 2026",
@@ -87,10 +87,16 @@ export const EXPERIENCE: ExperienceItem[] = [
   },
   {
     period: "Feb 2026 — Jun 2026",
-    title: "Intern",
+    title: "Data Engineer Intern",
     org: "BMKG",
     orgNote: "Badan Meteorologi, Klimatologi, dan Geofisika",
     logo: "/images/logos/bmkg.png",
+    bullets: [
+      "Cleaned and analyzed 1,058 seismic records from 281 monitoring stations in Python for the earthquake early warning team: removed extreme outliers with an IQR filter, derived hypocentral distance from station and source coordinates, and applied log transforms.",
+      "Built a baseline log-linear regression in scikit-learn that estimates earthquake magnitude from ground-motion parameters (PGA, PGV, PGD) and hypocentral distance, with a test MAE of 0.39 magnitude units, checked with 10-fold cross-validation.",
+      "Built a Metabase dashboard on 468 user feedback responses from the InaEEWS early warning app, covering alert receipt, alert speed, internet condition, user reaction, and location.",
+      "Presented both deliverables to the early warning team, revised them from supervisor feedback, and packaged the model as a Streamlit demo with input validation.",
+    ],
   },
   {
     period: "Feb 2025 — Jun 2025",
@@ -148,7 +154,7 @@ export const SKILL_GROUPS = [
   },
   {
     title: "Visualization & BI",
-    items: ["Tableau", "Power BI", "SAS Visual Analytics", "Matplotlib", "Seaborn"],
+    items: ["Tableau", "Power BI", "Metabase", "SAS Visual Analytics", "Matplotlib", "Seaborn"],
   },
   {
     title: "Web Development",
