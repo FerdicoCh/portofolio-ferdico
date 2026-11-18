@@ -23,8 +23,8 @@ export const PROJECTS: Project[] = [
     title: "Brain Disease Detection",
     category: "Medical imaging, classification",
     summary:
-      "A CNN feature extractor paired with an SVM classifier that detects brain tumor, aneurysm, and cancer from scans at 98% accuracy, served through a Flask web app for real-time prediction.",
-    tech: ["Python", "PyTorch", "CNN", "SVM", "Flask", "OpenCV"],
+      "A five-person team project for the TSDN data competition that compares six classifiers on 256 brain CT scans to detect aneurysm, cancer, and tumor. A linear SVM reached 98% test accuracy and runs in a Flask web app that accepts regular images or DICOM scans.",
+    tech: ["Python", "scikit-learn", "SVM", "TensorFlow / Keras", "Flask", "OpenCV"],
     cover: "/images/projects/Brain.jpeg",
     coverFit: "contain",
     repo: "https://github.com/FerdicoCh/Brain-Disease-Detection",
@@ -34,8 +34,8 @@ export const PROJECTS: Project[] = [
     title: "BBCA Stock & Bitcoin Price Forecasting",
     category: "Time-series forecasting",
     summary:
-      "A TimesNet model that projects BCA (BBCA) stock and Bitcoin prices twelve months ahead, built on cleaned historical market data and benchmarked against LSTM using MAE and MAPE.",
-    tech: ["Python", "PyTorch", "TimesNet", "Pandas", "Matplotlib", "Seaborn"],
+      "TimesNet models, built with NeuralForecast, that forecast the monthly closing prices of BCA (BBCA) stock and Bitcoin twelve months ahead from Yahoo Finance history, with each forecast charted against the actual price trend.",
+    tech: ["Python", "TimesNet", "NeuralForecast", "Pandas", "Matplotlib", "Seaborn"],
     cover: "/images/projects/bitcoin.jpeg",
     coverFit: "contain",
     repo: "https://github.com/FerdicoCh/BBCA-Stocks-Bitcoin-Price-Forecasting",
@@ -45,8 +45,8 @@ export const PROJECTS: Project[] = [
     title: "Plant Disease Detection",
     category: "Computer vision, transfer learning",
     summary:
-      "A ResNet-50 model that classifies 15 disease categories across tomato, potato, and pepper leaves at 93% accuracy, deployed as a web app for real-time prediction.",
-    tech: ["Python", "PyTorch", "ResNet-50", "Torchvision", "Flask", "OpenCV"],
+      "A ResNet-50 model, pretrained on ImageNet and adapted with transfer learning, that classifies 15 disease and healthy categories of tomato, potato, and pepper leaves from 20,638 images at 96% accuracy. A Flask web app predicts from an uploaded leaf photo and explains the disease.",
+    tech: ["Python", "TensorFlow / Keras", "ResNet-50", "Transfer learning", "Flask"],
     cover: "/images/projects/Plant.jpeg",
     coverFit: "contain",
     repo: "https://github.com/FerdicoCh/Plant-Disease-Detection-with-Deployment",
@@ -65,7 +65,7 @@ export const PROJECTS: Project[] = [
     title: "Tourism Travel Pattern Analysis in Indonesia",
     category: "Data visualization, dashboard",
     summary:
-      "An interactive Tableau dashboard that analyzes domestic tourism travel patterns across Indonesian provinces, using geospatial maps, ranking views, and dynamic Top-N filtering to surface regional disparities.",
+      "An interactive Tableau story on domestic travel across Indonesian provinces from 2022 to 2024, using geospatial maps, ranking views, and a Top-N filter, then focusing on West Papua as a low-traffic region with a trend forecast and proposed ways to grow its tourism.",
     tech: ["Tableau", "Calculated Fields", "Parameters", "Table Calculations"],
   },
 ];
