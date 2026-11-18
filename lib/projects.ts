@@ -52,6 +52,15 @@ export const PROJECTS: Project[] = [
     repo: "https://github.com/FerdicoCh/Plant-Disease-Detection-with-Deployment",
   },
   {
+    slug: "cadence",
+    title: "Cadence",
+    category: "Web and Android app",
+    summary:
+      "A speedcubing timer, trainer, and solver that runs as a website, an offline PWA, and an Android app from one TypeScript codebase. It reads a real cube through the phone camera, generates WCA random-state scrambles, tracks session statistics, and teaches CFOP and Roux in English and Bahasa Indonesia, backed by 850 unit tests.",
+    tech: ["TypeScript", "Vite", "Capacitor", "Web Workers", "WebGL", "Vitest"],
+    cover: "/images/projects/cadence.jpg",
+  },
+  {
     slug: "tourism-travel-pattern-analysis",
     title: "Tourism Travel Pattern Analysis in Indonesia",
     category: "Data visualization, dashboard",

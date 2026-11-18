@@ -105,6 +105,8 @@ export default function Projects() {
   const github = SOCIALS.find((s) => s.key === "github");
   const [featured, ...withCover] = PROJECTS.filter((p) => p.cover);
   const compact = PROJECTS.filter((p) => !p.cover);
+  // Kartu terakhir dibuat selebar penuh kalau jumlah kartu di grid 2 kolom ganjil.
+  const lastAlone = (withCover.length + compact.length) % 2 === 1;
 
   return (
     <section id="projects" className="py-24 sm:py-32">
@@ -137,8 +139,7 @@ export default function Projects() {
               key={p.slug}
               delay={(i % 2) * 0.07}
               y={24}
-              // Kartu terakhir yang sendirian di barisnya dibuat selebar penuh.
-              className={compact.length % 2 === 1 && i === compact.length - 1 ? "h-full md:col-span-2" : "h-full"}
+              className={lastAlone && i === compact.length - 1 ? "h-full md:col-span-2" : "h-full"}
             >
               <CompactCard project={p} />
             </Reveal>
