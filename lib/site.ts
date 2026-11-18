@@ -77,13 +77,21 @@ export type ExperienceItem = {
   bullets?: string[];
 };
 
-// TODO: tambah deskripsi kerja (bullets) untuk CIMB Niaga.
+// Isi bullets disamakan dengan CV (Claude Doc "CV Ferdico Chandra - Data").
 export const EXPERIENCE: ExperienceItem[] = [
   {
     period: "Jun 2026 — Dec 2026",
     title: "Cost Management Intern",
     org: "CIMB Niaga",
     logo: "/images/logos/cimb-niaga-mark.svg",
+    bullets: [
+      "Built an internal decision-support web app (Python, Flask, pandas, Plotly) that turns one Excel workbook into a full unit cost analysis, replacing a Jupyter notebook that only someone who could read the code was able to rerun.",
+      "Defined the costing method with the team: time-driven activity-based costing, volume-weighted cost per transaction and annual cost at four organizational levels, and a median-based cost-volume quadrant that flags high-cost activities for review.",
+      "Analyzed the unit cost of more than 600 activities across 50+ operations and credit operations units, traced where cost concentrates at group, unit, and activity level, and presented the findings and next-step recommendations in an executive deck.",
+      "Added pre-import data validation, rule-based insights, what-if scenario simulation, and automatic PowerPoint deck export, and secured the app with role-based access and an audit trail.",
+      "Verified accuracy with automated pytest golden tests against the reference notebook, then integrated the app as a module of the team's operations productivity system, confirmed by a parity check with identical results on all 654 test combinations and a regression check across 350 existing pages.",
+      "Ran time and motion studies across operations and technology units for about 10 weeks to measure the activity durations behind each cost per transaction.",
+    ],
   },
   {
     period: "Feb 2026 — Jun 2026",
