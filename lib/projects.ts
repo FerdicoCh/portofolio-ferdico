@@ -59,12 +59,4 @@ export const PROJECTS: Project[] = [
       "An interactive Tableau dashboard that analyzes domestic tourism travel patterns across Indonesian provinces, using geospatial maps, ranking views, and dynamic Top-N filtering to surface regional disparities.",
     tech: ["Tableau", "Calculated Fields", "Parameters", "Table Calculations"],
   },
-  {
-    slug: "trash2treasure",
-    title: "Trash2Treasure",
-    category: "Full-stack web application",
-    summary:
-      "A waste management and recycling platform built on Laravel's MVC architecture, with authentication, role-based access, CRUD features, and a normalized MySQL schema, validated through black-box testing.",
-    tech: ["Laravel", "PHP", "MySQL", "HTML", "CSS"],
-  },
 ];

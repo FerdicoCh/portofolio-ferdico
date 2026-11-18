@@ -133,7 +133,13 @@ export default function Projects() {
             </Reveal>
           ))}
           {compact.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 2) * 0.07} y={24} className="h-full">
+            <Reveal
+              key={p.slug}
+              delay={(i % 2) * 0.07}
+              y={24}
+              // Kartu terakhir yang sendirian di barisnya dibuat selebar penuh.
+              className={compact.length % 2 === 1 && i === compact.length - 1 ? "h-full md:col-span-2" : "h-full"}
+            >
               <CompactCard project={p} />
             </Reveal>
           ))}
