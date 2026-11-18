@@ -56,8 +56,8 @@ export const PROJECTS: Project[] = [
     title: "Cadence",
     category: "Web and Android app",
     summary:
-      "A speedcubing timer, trainer, and solver that runs as a website, an offline PWA, and an Android app from one TypeScript codebase. It reads a real cube through the phone camera, generates WCA random-state scrambles, tracks session statistics, and teaches CFOP and Roux in English and Bahasa Indonesia, backed by 850 unit tests.",
-    tech: ["TypeScript", "Vite", "Capacitor", "Web Workers", "WebGL", "Vitest"],
+      "A Rubik's Cube timer and learning app that works in a web browser, on a laptop without internet, and as an Android app. It scans a scrambled cube with the phone camera and shows how to solve it, tracks solve times and daily streaks, and teaches solving methods in English and Bahasa Indonesia.",
+    tech: ["TypeScript", "Android", "Automated testing"],
     cover: "/images/projects/cadence.jpg",
   },
   {
