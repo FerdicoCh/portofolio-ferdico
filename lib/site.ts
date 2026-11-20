@@ -42,7 +42,7 @@ export const SOCIALS: { key: SocialKey; label: string; handle: string; href: str
 
 // Kartu "Currently" di hero. Ganti setelah magang CIMB selesai (Des 2026).
 export const CURRENT_ROLE = {
-  title: "Cost Management Intern",
+  title: "Management Office Intern",
   org: "CIMB Niaga",
   logo: "/images/logos/cimb-niaga.svg",
 } as const;
@@ -81,7 +81,7 @@ export type ExperienceItem = {
 export const EXPERIENCE: ExperienceItem[] = [
   {
     period: "Jun 2026 — Dec 2026",
-    title: "Cost Management Intern",
+    title: "Management Office Intern",
     org: "CIMB Niaga",
     logo: "/images/logos/cimb-niaga-mark.svg",
     bullets: [
